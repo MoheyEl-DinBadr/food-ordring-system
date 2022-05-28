@@ -2,23 +2,18 @@ package com.mohey.food.ordring.service.order.application.service;
 
 import com.mohey.food.ordring.order.service.domain.core.OrderDomainService;
 import com.mohey.food.ordring.order.service.domain.core.entity.Order;
-import com.mohey.food.ordring.order.service.domain.core.entity.Product;
 import com.mohey.food.ordring.order.service.domain.core.entity.Restaurant;
 import com.mohey.food.ordring.order.service.domain.core.exception.OrderDomainException;
 import com.mohey.food.ordring.service.order.application.service.dto.create.CreateOrderCommand;
 import com.mohey.food.ordring.service.order.application.service.dto.create.CreateOrderResponse;
-import com.mohey.food.ordring.service.order.application.service.dto.create.OrderItem;
 import com.mohey.food.ordring.service.order.application.service.mapper.OrderDataMapper;
 import com.mohey.food.ordring.service.order.application.service.ports.output.repository.CustomerRepository;
 import com.mohey.food.ordring.service.order.application.service.ports.output.repository.OrderRepository;
 import com.mohey.food.ordring.service.order.application.service.ports.output.repository.RestaurantRepository;
-import com.mohey.food.ordring.system.common.valueobject.ProductId;
-import com.mohey.food.ordring.system.common.valueobject.RestaurantId;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -33,17 +28,20 @@ public class OrderCreateCommandHandler {
     private final RestaurantRepository restaurantRepository;
 
     private final OrderDataMapper orderDataMapper;
+    private final ApplicationDomainEventPublisher applicationDomainEventPublisher;
 
     public OrderCreateCommandHandler(OrderDomainService orderDomainService,
                                      OrderRepository orderRepository,
                                      CustomerRepository customerRepository,
                                      RestaurantRepository restaurantRepository,
-                                     OrderDataMapper orderDataMapper) {
+                                     OrderDataMapper orderDataMapper,
+                                     ApplicationDomainEventPublisher applicationDomainEventPublisher) {
         this.orderDomainService = orderDomainService;
         this.orderRepository = orderRepository;
         this.customerRepository = customerRepository;
         this.restaurantRepository = restaurantRepository;
         this.orderDataMapper = orderDataMapper;
+        this.applicationDomainEventPublisher = applicationDomainEventPublisher;
     }
 
     @Transactional
@@ -54,6 +52,7 @@ public class OrderCreateCommandHandler {
         var orderCreatedEvent = this.orderDomainService.validateAndInitiateOrder(order, restaurant);
         var orderResult = this.saveOrder(order);
         log.info("Order is created with id: {}", orderResult.getId().getValue());
+        applicationDomainEventPublisher.publish(orderCreatedEvent);
         return this.orderDataMapper.orderToCreateOrderResponse(orderResult, "Order has been created successfully");
     }
 
