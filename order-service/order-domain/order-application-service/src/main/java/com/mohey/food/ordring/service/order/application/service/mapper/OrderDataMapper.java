@@ -9,6 +9,7 @@ import com.mohey.food.ordring.order.service.domain.core.valueobject.TrackingId;
 import com.mohey.food.ordring.service.order.application.service.dto.create.CreateOrderCommand;
 import com.mohey.food.ordring.service.order.application.service.dto.create.CreateOrderResponse;
 import com.mohey.food.ordring.service.order.application.service.dto.create.OrderAddress;
+import com.mohey.food.ordring.service.order.application.service.dto.track.TrackOrderResponse;
 import com.mohey.food.ordring.system.common.valueobject.*;
 import org.springframework.stereotype.Component;
 
@@ -68,6 +69,14 @@ public class OrderDataMapper {
                 .orderTrackingId(orderResult.getTrackingId().getValue())
                 .orderStatus(orderResult.getOrderStatus())
                 .message(message)
+                .build();
+    }
+
+    public TrackOrderResponse orderToTrackOrderResponse(Order order){
+        return TrackOrderResponse.builder()
+                .orderStatus(order.getOrderStatus())
+                .orderTrackingId(order.getTrackingId().getValue())
+                .failureMessages(order.getFailureMessages())
                 .build();
     }
 }
