@@ -4,22 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="34aa1be6-f9b8-4d92-9b1c-bf06326e9ebd" name="Changes" comment="Initial Commit">
-      <change afterPath="$PROJECT_DIR$/infrastructure/docker-compose/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/docker-compose/common.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/docker-compose/init_kafka.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/docker-compose/kafka_cluster.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/docker-compose/zookeeper.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order-service/order-domain/order-application-service/src/test/java/com/mohey/food/ordering/service/order/application/service/OrderApplicationServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/order-domain/order-application-service/src/main/java/com/mohey/food/ordering/service/order/application/service/mapper/OrderDataMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/order-domain/order-application-service/src/main/java/com/mohey/food/ordering/service/order/application/service/mapper/OrderDataMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/order-domain/order-application-service/src/test/java/com/mohey/food/ordering/service/order/application/service/OrderTestConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/order-domain/order-application-service/src/test/java/com/mohey/food/ordering/service/order/application/service/OrderTestConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/order-domain/order-domain-core/src/main/java/com/mohey/food/ordering/order/service/domain/core/entity/Restaurant.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/order-domain/order-domain-core/src/main/java/com/mohey/food/ordering/order/service/domain/core/entity/Restaurant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-    </list>
+    <list default="true" id="34aa1be6-f9b8-4d92-9b1c-bf06326e9ebd" name="Changes" comment="Initial Commit" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -207,7 +192,7 @@
       <workItem from="1654102448186" duration="646000" />
       <workItem from="1654115097105" duration="8885000" />
       <workItem from="1654212838330" duration="1168000" />
-      <workItem from="1654347398275" duration="621000" />
+      <workItem from="1654347398275" duration="1249000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1653680312653</created>
@@ -251,7 +236,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653845934622</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Initial Commit">
+      <created>1654350665117</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1654350665117</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
