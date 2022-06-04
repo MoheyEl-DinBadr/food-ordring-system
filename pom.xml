@@ -7,6 +7,7 @@
         <module>order-service</module>
         <module>order-service/order-domain</module>
         <module>common</module>
+        <module>infrastructure</module>
     </modules>
 
     <parent>
