@@ -20,22 +20,22 @@ import java.util.UUID;
 @Component
 public class OrderCreateHelper {
 
-    private final OrderDomainService orderDomainService;
     private final OrderRepository orderRepository;
-    private final CustomerRepository customerRepository;
-    private final RestaurantRepository restaurantRepository;
     private final OrderDataMapper orderDataMapper;
+    private final CustomerRepository customerRepository;
+    private final OrderDomainService orderDomainService;
+    private final RestaurantRepository restaurantRepository;
 
     public OrderCreateHelper(OrderDomainService orderDomainService,
                              OrderRepository orderRepository,
                              CustomerRepository customerRepository,
                              RestaurantRepository restaurantRepository,
                              OrderDataMapper orderDataMapper) {
-        this.orderDomainService = orderDomainService;
         this.orderRepository = orderRepository;
-        this.customerRepository = customerRepository;
-        this.restaurantRepository = restaurantRepository;
         this.orderDataMapper = orderDataMapper;
+        this.customerRepository = customerRepository;
+        this.orderDomainService = orderDomainService;
+        this.restaurantRepository = restaurantRepository;
     }
 
 
