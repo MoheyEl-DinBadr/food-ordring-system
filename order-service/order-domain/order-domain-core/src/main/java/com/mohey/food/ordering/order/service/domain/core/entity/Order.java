@@ -76,14 +76,14 @@ public class Order extends AggregateRoot<OrderId> {
         }).reduce(Money.ZERO, Money::add);
 
         if (!orderItemsTotal.equals(this.price)){
-            throw new OrderDomainException("Total price: " + this.price.getAmount()
-            + " is not equal to Order Items total: " + orderItemsTotal.getAmount());
+            throw new OrderDomainException("Total price: " + this.price.amount()
+            + " is not equal to Order Items total: " + orderItemsTotal.amount());
         }
     }
 
     private void validateItemPrice(OrderItem orderItem) {
         if (!orderItem.isPriceValid()){
-            throw new OrderDomainException("Order item price: " + orderItem.getPrice().getAmount() +
+            throw new OrderDomainException("Order item price: " + orderItem.getPrice().amount() +
                     " is not valid for product: " + orderItem.getProduct().getId().getValue());
         }
     }

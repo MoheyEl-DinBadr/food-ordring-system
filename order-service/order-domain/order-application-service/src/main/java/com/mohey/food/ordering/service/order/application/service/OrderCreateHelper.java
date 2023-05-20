@@ -41,7 +41,7 @@ public class OrderCreateHelper {
 
     @Transactional
     public OrderCreatedEvent persistOrder(CreateOrderCommand createOrderCommand){
-        this.checkCustomer(createOrderCommand.getCustomerId());
+        this.checkCustomer(createOrderCommand.customerId());
         Restaurant restaurant = this.checkRestaurant(createOrderCommand);
         var order = this.orderDataMapper.createOrderCommandToOrder(createOrderCommand);
         var orderCreatedEvent = this.orderDomainService.validateAndInitiateOrder(order, restaurant);
@@ -56,8 +56,8 @@ public class OrderCreateHelper {
                 orderDataMapper.createOrderCommandToRestaurant(createOrderCommand)
         );
         if (restaurantOptional.isEmpty()) {
-            log.warn("Could not find restaurant with restaurant id: {}", createOrderCommand.getRestaurantId());
-            throw new OrderDomainException("Could not find restaurant with restaurant id: " + createOrderCommand.getRestaurantId());
+            log.warn("Could not find restaurant with restaurant id: {}", createOrderCommand.restaurantId());
+            throw new OrderDomainException("Could not find restaurant with restaurant id: " + createOrderCommand.restaurantId());
         }
         return restaurantOptional.get();
     }

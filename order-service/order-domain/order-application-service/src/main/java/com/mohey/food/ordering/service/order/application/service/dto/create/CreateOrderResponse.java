@@ -1,11 +1,11 @@
 package com.mohey.food.ordering.service.order.application.service.dto.create;
 
 import com.mohey.food.ordering.system.common.valueobject.OrderStatus;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
-import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Getter

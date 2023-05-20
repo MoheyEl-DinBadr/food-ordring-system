@@ -1,26 +1,13 @@
 package com.mohey.food.ordering.service.order.application.service.dto.create;
 
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
-import lombok.Getter;
 
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
-@Getter
 @Builder
-@AllArgsConstructor
-public class CreateOrderCommand {
-    @NotNull
-    private final UUID customerId;
-    @NotNull
-    private final UUID restaurantId;
-    @NotNull
-    private final BigDecimal price;
-    @NotNull
-    private final List<OrderItem> items;
-    @NotNull
-    private final OrderAddress orderAddress;
+public record CreateOrderCommand(@NotNull UUID customerId, @NotNull UUID restaurantId, @NotNull BigDecimal price,
+                                 @NotNull List<OrderItem> items, @NotNull OrderAddress orderAddress) {
 }

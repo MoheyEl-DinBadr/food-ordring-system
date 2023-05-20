@@ -138,7 +138,7 @@ public class OrderApplicationServiceTest {
 
         Restaurant restaurant = Restaurant
                 .builder()
-                .restaurantId(new RestaurantId(createOrderCommand.getRestaurantId()))
+                .restaurantId(new RestaurantId(createOrderCommand.restaurantId()))
                 .products(List.of(new Product(new ProductId(PRODUCT_ID), "product-1", new Money(new BigDecimal("50.00"))),
                         new Product(new ProductId(PRODUCT_ID2), "product-2", new Money(new BigDecimal("50.00")))))
                 .active(true)
@@ -170,8 +170,8 @@ public class OrderApplicationServiceTest {
     public void testCreateOrderWithWrongTotalPrice(){
         OrderDomainException orderDomainException = assertThrows(OrderDomainException.class,
                 () -> this.orderApplicationService.createOrder(createOrderCommandWrongPrice));
-        assertEquals(orderDomainException.getMessage(),
-                "Total price: 250.00 is not equal to Order Items total: 200.00");
+        assertEquals("Total price: 250.00 is not equal to Order Items total: 200.00",
+                orderDomainException.getMessage());
     }
 
     @Test
@@ -186,7 +186,7 @@ public class OrderApplicationServiceTest {
     public void testCreateOrderWithPassiveRestaurant(){
         var restaurant = Restaurant
                 .builder()
-                .restaurantId(new RestaurantId(createOrderCommand.getRestaurantId()))
+                .restaurantId(new RestaurantId(createOrderCommand.restaurantId()))
                 .products(List.of(new Product(new ProductId(PRODUCT_ID), "product-1", new Money(new BigDecimal("50.00"))),
                         new Product(new ProductId(PRODUCT_ID2), "product-2", new Money(new BigDecimal("50.00")))))
                 .active(false)

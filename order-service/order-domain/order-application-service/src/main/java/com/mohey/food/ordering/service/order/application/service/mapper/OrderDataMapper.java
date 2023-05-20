@@ -21,10 +21,10 @@ public class OrderDataMapper {
 
     public Restaurant createOrderCommandToRestaurant(CreateOrderCommand createOrderCommand) {
         return Restaurant.builder()
-                .restaurantId(new RestaurantId(createOrderCommand.getRestaurantId()))
-                .products(createOrderCommand.getItems().stream().map(orderItem ->
+                .restaurantId(new RestaurantId(createOrderCommand.restaurantId()))
+                .products(createOrderCommand.items().stream().map(orderItem ->
                                 new Product(new ProductId(orderItem.getProductId()))
-                        ).collect(Collectors.toList())
+                        ).toList()
                 )
 
                 .build();
@@ -32,11 +32,11 @@ public class OrderDataMapper {
 
     public Order createOrderCommandToOrder(CreateOrderCommand createOrderCommand) {
         return Order.builder()
-                .customerId(new CustomerId(createOrderCommand.getCustomerId()))
-                .restaurantId(new RestaurantId(createOrderCommand.getRestaurantId()))
-                .streetAddress(this.orderAddressToStreetAddress(createOrderCommand.getOrderAddress()))
-                .price(new Money(createOrderCommand.getPrice()))
-                .items(this.orderItemsToOrderItemEntities(createOrderCommand.getItems()))
+                .customerId(new CustomerId(createOrderCommand.customerId()))
+                .restaurantId(new RestaurantId(createOrderCommand.restaurantId()))
+                .streetAddress(this.orderAddressToStreetAddress(createOrderCommand.orderAddress()))
+                .price(new Money(createOrderCommand.price()))
+                .items(this.orderItemsToOrderItemEntities(createOrderCommand.items()))
                 .build();
     }
 
@@ -50,7 +50,7 @@ public class OrderDataMapper {
                                 .subTotal(new Money(orderItem.getSubTotal()))
                                 .build()
                 )
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private StreetAddress orderAddressToStreetAddress(OrderAddress orderAddress) {
