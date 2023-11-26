@@ -6,17 +6,11 @@ import com.mohey.food.ordering.system.common.valueobject.Money;
 import com.mohey.food.ordering.system.common.valueobject.OrderId;
 
 public class OrderItem extends BaseEntity<OrderItemId> {
-    private OrderId orderId;
     private final Product product;
     private final int quantity;
     private final Money price;
     private final Money subTotal;
-
-    void initializeOrderItem(OrderItemId orderItemId, OrderId orderId) {
-        super.setId(orderItemId);
-        this.orderId = orderId;
-    }
-
+    private OrderId orderId;
 
     private OrderItem(Builder builder) {
         super.setId(builder.orderItemId);
@@ -30,6 +24,10 @@ public class OrderItem extends BaseEntity<OrderItemId> {
         return new Builder();
     }
 
+    void initializeOrderItem(OrderItemId orderItemId, OrderId orderId) {
+        super.setId(orderItemId);
+        this.orderId = orderId;
+    }
 
     public OrderId getOrderId() {
         return orderId;

@@ -4,5 +4,6 @@ import com.mohey.food.ordering.service.order.application.service.dto.message.Pay
 
 public interface PaymentResponseMessageListener {
     void paymentCompleted(PaymentResponse paymentResponse);
+
     void paymentCancelled(PaymentResponse paymentResponse);
 }

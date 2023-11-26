@@ -4,7 +4,6 @@ import com.mohey.food.ordering.system.kafka.config.data.KafkaConfigData;
 import com.mohey.food.ordering.system.kafka.config.data.KafkaConsumerConfigData;
 import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -30,7 +29,7 @@ public class KafkaConsumerConfig<K extends Serializable, V extends SpecificRecor
     }
 
     @Bean
-    public Map<String, Object> consumerConfigs(){
+    public Map<String, Object> consumerConfigs() {
         var props = new HashMap<String, Object>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, this.kafkaConfigData.getBootstrapServers());
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, this.kafkaConsumerConfigData.getKeyDeserializer());
@@ -48,13 +47,13 @@ public class KafkaConsumerConfig<K extends Serializable, V extends SpecificRecor
     }
 
     @Bean
-    public ConsumerFactory<K, V> consumerFactory(){
+    public ConsumerFactory<K, V> consumerFactory() {
         return new DefaultKafkaConsumerFactory<>(this.consumerConfigs());
     }
 
     @Bean
-    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<K, V>> kafkaListenerContainerFactory(){
-        var factory =  new ConcurrentKafkaListenerContainerFactory<K, V>();
+    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<K, V>> kafkaListenerContainerFactory() {
+        var factory = new ConcurrentKafkaListenerContainerFactory<K, V>();
         factory.setConsumerFactory(this.consumerFactory());
         factory.setBatchListener(this.kafkaConsumerConfigData.getBatchListener());
         factory.setConcurrency(this.kafkaConsumerConfigData.getConcurrencyLevel());

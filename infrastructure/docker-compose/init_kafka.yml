@@ -2,7 +2,7 @@ version: ${VERSION}
 services:
   init-kafka:
     image: confluentinc/cp-kafka:${KAFKA_VERSION}
-    entrypoint: ['/bin/sh', '-c']
+    entrypoint: [ '/bin/sh', '-c' ]
     command: |
       "
       # block until kafka is reachable

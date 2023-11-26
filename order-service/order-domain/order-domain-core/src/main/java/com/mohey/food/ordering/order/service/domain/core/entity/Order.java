@@ -22,39 +22,55 @@ public class Order extends AggregateRoot<OrderId> {
     private OrderStatus orderStatus;
     private List<String> failureMessages;
 
-    public void initializeOrder(){
+    private Order(Builder builder) {
+        super.setId(builder.orderId);
+        customerId = builder.customerId;
+        restaurantId = builder.restaurantId;
+        streetAddress = builder.streetAddress;
+        price = builder.price;
+        items = builder.items;
+        trackingId = builder.trackingId;
+        orderStatus = builder.orderStatus;
+        failureMessages = builder.failureMessages;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public void initializeOrder() {
         setId(new OrderId(UUID.randomUUID()));
         this.trackingId = new TrackingId(UUID.randomUUID());
         this.orderStatus = OrderStatus.PENDING;
         this.initializeOrderItems();
     }
 
-    public void validateOrder(){
+    public void validateOrder() {
         this.validateInitialOrder();
         this.validateTotalPrice();
         this.validateItemsPrice();
     }
 
-    public void pay(){
+    public void pay() {
         if (!this.orderStatus.equals(OrderStatus.PENDING))
             throw new OrderDomainException("Order is not in correct state for pay operation!");
         this.orderStatus = OrderStatus.PAID;
     }
 
-    public void approve(){
+    public void approve() {
         if (!this.orderStatus.equals(OrderStatus.PAID))
             throw new OrderDomainException("Order is not in correct state for approve operation!");
         this.orderStatus = OrderStatus.APPROVED;
     }
 
-    public void initCancel(List<String> failureMessages){
+    public void initCancel(List<String> failureMessages) {
         if (!this.orderStatus.equals(OrderStatus.PAID))
             throw new OrderDomainException("Order is not in correct state for initCancel operation!");
         this.orderStatus = OrderStatus.CANCELLING;
         this.updateFailureMessages(failureMessages);
     }
 
-    public void cancel(List<String> failureMessages){
+    public void cancel(List<String> failureMessages) {
         if (!(this.orderStatus.equals(OrderStatus.CANCELLING) || this.orderStatus.equals(OrderStatus.PENDING)))
             throw new OrderDomainException("Order is not in correct state for cancel operation!");
         this.orderStatus = OrderStatus.CANCELLED;
@@ -75,27 +91,27 @@ public class Order extends AggregateRoot<OrderId> {
             return orderItem.getSubTotal();
         }).reduce(Money.ZERO, Money::add);
 
-        if (!orderItemsTotal.equals(this.price)){
+        if (!orderItemsTotal.equals(this.price)) {
             throw new OrderDomainException("Total price: " + this.price.amount()
-            + " is not equal to Order Items total: " + orderItemsTotal.amount());
+                    + " is not equal to Order Items total: " + orderItemsTotal.amount());
         }
     }
 
     private void validateItemPrice(OrderItem orderItem) {
-        if (!orderItem.isPriceValid()){
+        if (!orderItem.isPriceValid()) {
             throw new OrderDomainException("Order item price: " + orderItem.getPrice().amount() +
                     " is not valid for product: " + orderItem.getProduct().getId().getValue());
         }
     }
 
     private void validateTotalPrice() {
-        if (this.price == null || !this.price.isGreaterThanZero()){
+        if (this.price == null || !this.price.isGreaterThanZero()) {
             throw new OrderDomainException("Total price must be greater than zero!");
         }
     }
 
     private void validateInitialOrder() {
-        if (this.orderStatus != null || this.getId() != null){
+        if (this.orderStatus != null || this.getId() != null) {
             throw new OrderDomainException("Order is not in correct state for initialization!");
         }
 
@@ -103,28 +119,10 @@ public class Order extends AggregateRoot<OrderId> {
 
     private void initializeOrderItems() {
         long itemId = 1L;
-        for (OrderItem item: this.items){
+        for (OrderItem item : this.items) {
             item.initializeOrderItem(new OrderItemId(itemId++), super.getId());
         }
     }
-
-
-    private Order(Builder builder) {
-        super.setId(builder.orderId);
-        customerId = builder.customerId;
-        restaurantId = builder.restaurantId;
-        streetAddress = builder.streetAddress;
-        price = builder.price;
-        items = builder.items;
-        trackingId = builder.trackingId;
-        orderStatus = builder.orderStatus;
-        failureMessages = builder.failureMessages;
-    }
-
-    public static Builder builder() {
-        return new Builder();
-    }
-
 
     public CustomerId getCustomerId() {
         return customerId;

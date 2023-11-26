@@ -4,5 +4,6 @@ import com.mohey.food.ordering.service.order.application.service.dto.message.Res
 
 public interface RstaurantApproveRespListener {
     void orderApproved(RestaurantApprovalResponse restaurantApprovalResponse);
+
     void orderRejected(RestaurantApprovalResponse restaurantApprovalResponse);
 }

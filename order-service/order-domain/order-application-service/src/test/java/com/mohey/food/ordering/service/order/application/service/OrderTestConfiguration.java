@@ -10,7 +10,6 @@ import com.mohey.food.ordering.service.order.application.service.ports.output.re
 import com.mohey.food.ordering.service.order.application.service.ports.output.repository.RestaurantRepository;
 import org.mockito.Mockito;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication(scanBasePackages = "com.mohey.food.ordering")
@@ -18,37 +17,37 @@ public class OrderTestConfiguration {
 
 
     @Bean
-    public OrderCreatedPaymentRequestMessagePublisher orderCreatedPaymentRequestMessagePublisher(){
+    public OrderCreatedPaymentRequestMessagePublisher orderCreatedPaymentRequestMessagePublisher() {
         return Mockito.mock(OrderCreatedPaymentRequestMessagePublisher.class);
     }
 
     @Bean
-    public OrderCancelledPaymentMessagePublisher orderCancelledPaymentMessagePublisher(){
+    public OrderCancelledPaymentMessagePublisher orderCancelledPaymentMessagePublisher() {
         return Mockito.mock(OrderCancelledPaymentMessagePublisher.class);
     }
 
     @Bean
-    public OrderPaidRestaurantRequestPublisher orderPaidRestaurantRequestPublisher(){
+    public OrderPaidRestaurantRequestPublisher orderPaidRestaurantRequestPublisher() {
         return Mockito.mock(OrderPaidRestaurantRequestPublisher.class);
     }
 
     @Bean
-    public OrderRepository orderRepository(){
+    public OrderRepository orderRepository() {
         return Mockito.mock(OrderRepository.class);
     }
 
     @Bean
-    public CustomerRepository customerRepository(){
+    public CustomerRepository customerRepository() {
         return Mockito.mock(CustomerRepository.class);
     }
 
     @Bean
-    public RestaurantRepository restaurantRepository(){
+    public RestaurantRepository restaurantRepository() {
         return Mockito.mock(RestaurantRepository.class);
     }
 
     @Bean
-    public OrderDomainService orderDomainService(){
+    public OrderDomainService orderDomainService() {
         return new OrderDomainServiceImpl();
     }
 }

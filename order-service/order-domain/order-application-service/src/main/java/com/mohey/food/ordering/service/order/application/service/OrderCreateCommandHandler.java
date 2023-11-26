@@ -25,9 +25,9 @@ public class OrderCreateCommandHandler {
         this.orderCreatedPaymentRequestMessagePublisher = orderCreatedPaymentRequestMessagePublisher;
     }
 
-    public CreateOrderResponse createOrder(CreateOrderCommand createOrderCommand){
+    public CreateOrderResponse createOrder(CreateOrderCommand createOrderCommand) {
 
-        var orderCreatedEvent= this.orderCreateHelper.persistOrder(createOrderCommand);
+        var orderCreatedEvent = this.orderCreateHelper.persistOrder(createOrderCommand);
         log.info("Order is created with id: {}", orderCreatedEvent.getOrder().getId().getValue());
         this.orderCreatedPaymentRequestMessagePublisher.publish(orderCreatedEvent);
         return this.orderDataMapper.orderToCreateOrderResponse(orderCreatedEvent.getOrder(), "Order has been created successfully");

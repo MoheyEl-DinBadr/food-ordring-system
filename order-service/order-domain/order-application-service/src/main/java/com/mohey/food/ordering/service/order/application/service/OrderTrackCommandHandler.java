@@ -1,11 +1,11 @@
 package com.mohey.food.ordering.service.order.application.service;
 
+import com.mohey.food.ordering.order.service.domain.core.exception.OrderNotFoundException;
+import com.mohey.food.ordering.order.service.domain.core.valueobject.TrackingId;
 import com.mohey.food.ordering.service.order.application.service.dto.track.TrackOrderQuery;
 import com.mohey.food.ordering.service.order.application.service.dto.track.TrackOrderResponse;
 import com.mohey.food.ordering.service.order.application.service.mapper.OrderDataMapper;
 import com.mohey.food.ordering.service.order.application.service.ports.output.repository.OrderRepository;
-import com.mohey.food.ordering.order.service.domain.core.exception.OrderNotFoundException;
-import com.mohey.food.ordering.order.service.domain.core.valueobject.TrackingId;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +25,7 @@ public class OrderTrackCommandHandler {
     @Transactional(readOnly = true)
     public TrackOrderResponse trackOrder(TrackOrderQuery trackOrderQuery) {
         var optionalOrder = orderRepository.findByTrackingId(new TrackingId(trackOrderQuery.getOrderTrackingId()));
-        if (optionalOrder.isEmpty()){
+        if (optionalOrder.isEmpty()) {
             log.warn("Could not find order with tracking id: {}", trackOrderQuery.getOrderTrackingId());
             throw new OrderNotFoundException("Could not find order with tracking id: " + trackOrderQuery.getOrderTrackingId());
         }
