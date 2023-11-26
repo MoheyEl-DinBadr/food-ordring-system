@@ -1,4 +1,5 @@
 target/
+**/docker-compose/volumes/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -21,6 +22,10 @@ target/
 .settings
 .springBeans
 .sts4-cache
+.index
+.log
+.timeindex
+.metadata
 
 ### NetBeans ###
 /nbproject/private/
